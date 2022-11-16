@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function user(){
+        return view('User.index');
+    }
    public function shopNow(){
      if(!Auth::check()){
         return view('auth.register');
@@ -26,5 +29,8 @@ class UserController extends Controller
        ->get();
     //    dd($userData->toArray());
        return view('User.shop.shopPage')->with(['data'=>$userData]);
+   }
+   public function aboutUsPage(){
+       return view('User.aboutUs');
    }
 }

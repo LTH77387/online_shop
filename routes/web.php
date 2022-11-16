@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 // use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,9 +35,7 @@ Route::middleware([
 Route::get('test',function(){
     return view('layout.bs');
 });
-Route::get('user',function(){
-    return view('User.index');
-});
+
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 Route::get('adminHome',[AdminController::class,'adminHome'])->name('adminHome');
 Route::get('adminCategory',[AdminController::class,'adminCategory'])->name('adminCategory');
@@ -50,6 +49,10 @@ Route::get('addProduct',[AdminController::class,'addProduct'])->name('addProduct
 Route::post('productAdd',[AdminController::class,'productAdd'])->name('productAdd');
 });
 Route::group(['prefix'=>'user','namespace'=>'User'],function(){
+    Route::get('user',[UserController::class,'user'])->name('user');
  Route::get('shopNow',[UserController::class,'shopNow'])->name('shopNow');
  Route::get('shopPage',[UserController::class,'shopPage'])->name('shopPage');
+Route::get('userOrderPage/{id}',[OrderController::class,'userOrderPage'])->name('userOrderPage');
+route::get('aboutUsPage',[UserController::class,'aboutUsPage'])->name('aboutUsPage');
+
 });

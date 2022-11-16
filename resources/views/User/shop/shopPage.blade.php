@@ -17,7 +17,95 @@
      <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
      <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
      <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+<style>
+    /* From uiverse.io */
+/* button {
+ align-items: center;
+ background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+ border: 0;
+ border-radius: 8px;
+ box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+ box-sizing: border-box;
+ color: #FFFFFF;
+ display: flex;
+ font-family: Phantomsans, sans-serif;
+ font-size: 18px;
+ justify-content: center;
+ line-height: 1em;
+ max-width: 100%;
+ min-width: 140px;
+ padding: 3px;
+ text-decoration: none;
+ user-select: none;
+ -webkit-user-select: none;
+ touch-action: manipulation;
+ white-space: nowrap;
+ cursor: pointer;
+ transition: all .3s;
+}
 
+button:active,
+button:hover {
+ outline: 0;
+}
+
+button span {
+ background-color: rgb(5, 6, 45);
+ padding: 10px 10px;
+ border-radius: 6px;
+ width: 100%;
+ height: 100%;
+ transition: 300ms;
+}
+
+button:hover span {
+ background: none;
+}
+
+button:active {
+ transform: scale(0.9);
+} */
+/* btn_1
+/* From uiverse.io by @alexroumi */
+#btn_1 {
+ padding: 10px 10px;
+ border: unset;
+ border-radius: 15px;
+ color: #212121;
+ z-index: 1;
+ background: #e8e8e8;
+ position: relative;
+ font-weight: 1000;
+ font-size: 17px;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms;
+ overflow: hidden;
+}
+
+#btn_1::before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ height: 100%;
+ width: 0;
+ border-radius: 15px;
+ background-color: #212121;
+ z-index: -1;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms
+}
+
+#btn_1:hover {
+ color: #e8e8e8;
+}
+
+#btn_1:hover::before {
+ width: 100%;
+}*/
+</style>
 </head>
 <body>
      <!-- Shop Section Begin -->
@@ -44,14 +132,14 @@
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                        <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
                                     </div>
-                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <div class="shop__sidebar__categories">
+                                            <div class="shop__sidebar__brand">
                                               @foreach ($data as $item)
-                                              <ul class="nice-scroll">
-                                                <li><a href="#">{{ $item->category_name }}</a></li>
+                                              <ul>
+                                                <li><a href="#">{{ $item->brand_name }}</a></li>
 
                                             </ul>
                                               @endforeach
@@ -116,25 +204,27 @@
                             <div class="product__item">
                                 <div class="product__item__pic set-bg">
                                     <img src="{{ asset('/uploads/' . $item->product_image) }}" alt="" class="img-thumbnail product__item__pic set-bg w-100" width="100px" height="100px" >
-                                    <ul class="product__hover">
+                                    {{-- <ul class="product__hover">
                                         <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
                                         <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
                                         </li>
                                         <li><a href="#"><img src="" alt=""></a></li>
-                                    </ul>
-                                </div>
+                                    </ul> --}}
+                                </div><br>
+                                <h5 class="add-cart"><b><i>{{ $item->product_name }}</i></b></h5>
                                 <div class="product__item__text">
-                                    <h6>Piqué Biker Jacket</h6>
-                                    <a href="#" class="add-cart">+ Add To Cart</a>
-                                    <div class="rating">
+
+                                    {{-- <a href="#" class="add-cart">+ Add To Cart</a> --}}
+                                    {{-- <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
-                                    </div>
-                                    <h5>$67.24</h5>
-                                    <div class="product__color__select">
+                                    </div> --}}
+                                    <h5><strike>{{ $item->product_price }}</strike></h5>
+                                    <h5>{{ $item->product_price - $item->discount_price }}</h5>
+                                    {{-- <div class="product__color__select">
                                         <label for="pc-4">
                                             <input type="radio" id="pc-4">
                                         </label>
@@ -144,8 +234,16 @@
                                         <label class="grey" for="pc-6">
                                             <input type="radio" id="pc-6">
                                         </label>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                </div><br>
+                               {{-- <form action="{{ route('userOrder',Auth()->user()->id) }}" method="post">
+                                @csrf
+                                <button type="submit">
+                                    <span class="text">Order Now!</span>
+                                  </button>
+                               </form> --}}
+<a href="{{ route('userOrderPage',$item->product_id) }}"><button id="btn_1" class="mb-2"> See More ...
+</button></a>
                             </div>
                         </div>
                         @endforeach

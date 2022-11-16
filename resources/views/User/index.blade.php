@@ -23,7 +23,7 @@
                     <li><a href="{{ route('shopPage') }}" class="text-decoration-none">Shop</a></li>
                     <li><a href="#" class="text-decoration-none">Pages</a>
                         <ul class="dropdown">
-                            <li><a href="./about.html" class="text-decoration-none">About Us</a></li>
+                            <li><a href="{{ route('aboutUsPage') }}" class="text-decoration-none">About Us</a></li>
                             <li><a href="./shop-details.html" class="text-decoration-none">Shop Details</a></li>
                             <li><a href="./shopping-cart.html" class="text-decoration-none">Shopping Cart</a></li>
                             <li><a href="./checkout.html" class="text-decoration-none">Check Out</a></li>
